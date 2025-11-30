@@ -5,6 +5,9 @@
 #include <thread>
 #include <algorithm>
 
+//Dungeon_Explorer: Alpha
+//Crit chance, crit potions, classes: warrior, druid, wizard, necromancer, leveling up class, fix choosing doors
+
 class DungeonGame {
 private:
     // Random number generator
@@ -86,8 +89,7 @@ public:
     }
 
     void actions() {
-        std::cout << "y = attack\n";
-        std::cout << "n = run away\n";
+
         std::cout << "stats = check your stats\n";
         std::cout << "inventory = check your inventory\n";
         std::cout << "use = use an item\n";
@@ -105,6 +107,18 @@ public:
             if (advised == "quit") {
                 std::cout << "You have exited the 'advise' menu.\n";
                 break;
+            }
+            else if (advised == "stats") {
+                stats();
+            }
+            else if (advised == "inventory") {
+                inventory();
+            }
+            else if (advised == "use") {
+                use();
+            }
+            else if (advised == "inspect") {
+                inspect();
             }
             else if (advised == "doors") {
                 std::cout << "The doors will have different treasure, chances at having treasure, and level of monsters.\n";
@@ -138,6 +152,7 @@ public:
     }
 
     void inventory() {
+        std::cout << "gp = x" << gp << "\n";
         std::cout << "Small health potion = x" << smallHealthPotion << "\n";
         std::cout << "Small speed potion = x" << smallSpeedPotion << "\n";
         std::cout << "Small strength potion = x" << smallStrengthPotion << "\n";
@@ -159,6 +174,18 @@ public:
             if (inspecting == "quit") {
                 std::cout << "You've exited the 'inspect' menu\n";
                 break;
+            }
+            else if (inspecting == "stats") {
+                stats();
+            }
+            else if (inspecting == "inventory") {
+                inventory();
+            }
+            else if (inspecting == "use") {
+                use();
+            }
+            else if (inspecting == "advice") {
+                advice();
             }
             else if (inspecting == "t-shirt" || inspecting == "t shirt") {
                 std::cout << "The T-shirt will give you a x3 point bonus at the end of the game.\n";
@@ -480,6 +507,18 @@ public:
                 std::cout << "You have exited the 'use' menu.\n";
                 break;
             }
+            else if (used == "stats") {
+                stats();
+            }
+            else if (used == "inventory") {
+                inventory();
+            }
+            else if (used == "inspect") {
+                inspect();
+            }
+            else if (used == "advice") {
+                advice();
+            }
             else {
                 std::cout << "Invalid answer. Try using something else or type 'quit'.\n";
             }
@@ -769,15 +808,15 @@ public:
     void shop() { 
         std::cout << "You walk into a little shop. You have " << gp << " gp. After buying something type 'leave'.\n";
         std::cout << "PRICES:\n";
-        std::cout << "Small healing potions: 20 per\n";
+        std::cout << "Small health potions: 20 per\n";
         std::cout << "Small speed potions: 30 per\n";
         std::cout << "Small strength potion: 30 per\n";
         std::cout << "Small precision potion: 30 per\n";
-        std::cout << "Healing potion: 40 per\n";
+        std::cout << "health potion: 40 per\n";
         std::cout << "Speed potion: 60 per\n";
         std::cout << "Strength potion: 60 per\n";
         std::cout << "Precision potion: 60 per\n";
-		std::cout << "Large healing potion: 80 per\n";
+		std::cout << "Large health potion: 80 per\n";
 		std::cout << "Large speed potion: 120 per\n";
 		std::cout << "Large strength potion: 120 per\n";
         std::cout << "Large precision potion: 120 per\n";
@@ -788,7 +827,22 @@ public:
                 inRoom = false;
                 break;
             }
-            else if (buying == "small healing potion") {
+            else if (buying == "stats") {
+                stats();
+            }
+            else if (buying == "inventory") {
+                inventory();
+            }
+            else if (buying == "use") {
+                use();
+            }
+            else if (buying == "inspect") {
+                inspect();
+            }
+            else if (buying == "advice") {
+                advice();
+            }
+            else if (buying == "small health potion") {
                 std::cout << "How many would you like to buy?\n";
                 buyHowMany = getIntInput();
                 cost = buyHowMany * 20;
@@ -844,7 +898,7 @@ public:
                     std::cout << "You now have " << smallPrecisionPotion << " small precision potions and " << gp << " gp!\n";
                 }
             }
-            else if (buying == "healing potion") {
+            else if (buying == "health potion") {
                 std::cout << "How many would you like to buy?\n";
                 buyHowMany = getIntInput();
                 cost = buyHowMany * 40;
@@ -900,7 +954,7 @@ public:
                     std::cout << "You now have " << precisionPotion << " precision potions and " << gp << " gp!\n";
                 }
             }
-            else if (buying == "large healing potion") {
+            else if (buying == "large health potion") {
                 std::cout << "How many would you like to buy?\n";
                 buyHowMany = getIntInput();
                 cost = buyHowMany * 80;
@@ -1942,8 +1996,9 @@ public:
     }
 
     void vampireCombat() {
+        std::cout << "Do you fight? y/n\n";
         while (true) {
-            std::cout << "Do you fight? y/n\n";
+
             fight = getInput();
 
             if (!processCommand(fight)) continue;
@@ -2137,9 +2192,9 @@ public:
 
     void skeletonKingCombat() {
         int bossRoundCounter = 6;
-
+        std::cout << "Do you fight? y/n\n";
         while (true) {
-            std::cout << "Do you fight? y/n\n";
+
             fight = getInput();
 
             if (!processCommand(fight)) continue;
@@ -2516,8 +2571,9 @@ public:
     }
 
     void dragonCombat() {
+        std::cout << "Do you fight? y/n\n";
         while (true) {
-            std::cout << "Do you fight? y/n\n";
+
             fight = getInput();
 
             if (!processCommand(fight)) continue;
